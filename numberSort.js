@@ -18,7 +18,7 @@ function generate(count){
 	
 	for (var i = 0; i < count; i++) {
 		
-		content.innerHTML += "<div class=\"numberContainer\" ondragover=\"allowDrop(event);\" id=" + i + "><div class=\"dropZone\" ondragover=\"allowDrop(event);\" ondrop=\"dragDrop(event);\" ondragleave=\"dragLeave(this);\" ondragenter=\"dragEnter(event);\"></div><div class=\"spacer\"></div><div class=\"number\" draggable=\"true\" ondragstart=\"dragStart(event);\" ondragend=\"dragEnd(event);\" onclick=\"pressListener(this);\">" + getRandom() + "</div></div>";
+		content.innerHTML += "<div class=\"numberContainer\" ondragover=\"allowDrop(event);\" id=" + i + "><div class=\"dropZone\" ondragover=\"allowDrop(event);\" ondrop=\"dragDrop(event);\" ondragleave=\"dragLeave(this);\" ondragenter=\"dragEnter(event);\"></div><div class=\"spacer\"></div><div class=\"number\" draggable=\"true\" ondragstart=\"dragStart(event);\" ondragend=\"dragEnd(event);\">" + getRandom() + "</div></div>";
 
 	}
 	
@@ -64,7 +64,6 @@ function dragDrop(ev) {
 	var e = ev.target.parentNode;
 	e.childNodes[1].style.width = "7px";
 	e.childNodes[0].style.width = "59px";
-	console.log(ev.dataTransfer.getData("id"));
 	e.parentNode.insertBefore(document.getElementById(ev.dataTransfer.getData("id")), e);
 	
 }
