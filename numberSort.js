@@ -26,7 +26,7 @@ function generate(count){
 	
 }
 
-function submitListener() {
+function submitForm() {
 	
 	if (countBox.value == "" || countBox.value < 1 || isNaN(parseFloat(countBox.value))) {
 		
@@ -105,7 +105,7 @@ function getRandom() {
 	
 }
 
-window.addEventListener("load", function(event){
+window.addEventListener("load", function(ev){
 	
 	countBox = document.getElementById("count");
 	submitBtn = document.getElementById("submit");
@@ -113,10 +113,20 @@ window.addEventListener("load", function(event){
 	
 	submitBtn.addEventListener("click", function(){
 		
-		event.preventDefault();
-		submitListener();
+		ev.preventDefault();
+		submitForm();
 		
 	}, false);
 	
+	countBox.addEventListener("keyup", function(ev) {
+		
+		ev.which = ev.which || ev.keyCode;
+		if(ev.which == 13) {
+			submitForm();
+		}
+		
+	}, false);
+	
+	countBox.focus();
 	
 }, false);
