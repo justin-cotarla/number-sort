@@ -1,0 +1,83 @@
+div.main {
+	
+	width: 80%;
+    margin: 2em auto;
+    text-align: center;
+    padding: 1em;
+    border: solid 1px black;
+	
+}
+
+#submit {
+	
+	margin-top: 1em;
+		
+}
+
+#content{
+	
+	overflow: auto;
+	margin-top: 1em;
+	padding: 10px;
+	
+}
+
+h1{
+	
+	margin-bottom: 0;
+	
+}
+
+h4{
+	font-family: monospace;
+    margin: 1em;	
+}
+
+div.spacer{
+	
+	width: 7px;
+    height: 50px;
+    display: inline-block;
+    float: left;
+	
+}
+
+div.dropZone{
+	
+    //border: 2px red solid;
+    width: 59px;
+    height: 100%;
+    display: none;
+    position: absolute;
+    left: 0;
+    z-index: 0;
+	
+	
+}
+
+div.number{
+	
+    width: 50px;
+    height: 50px;
+    border: solid 2px black;
+    font-size: 2.6em;
+    text-align: center;
+    display: inline-block;
+    cursor: move;
+	
+}
+
+div.numberContainer{
+	display: inline-block;
+    float: left;
+    margin: 7px 0;
+	width: auto;
+	height: auto;
+	position: relative;
+}
+
+div.red{
+	
+	color: red;
+	
+}
