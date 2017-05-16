@@ -16,6 +16,8 @@ function generate(count){
 	
 	content.innerHTML = "";
 	
+	content.innerHTML += "<div class=\"separator\"></div>";
+	
 	for (var i = 0; i < count; i++) {
 		
 		content.innerHTML += "<div class=\"numberContainer\" ondragover=\"allowDrop(event);\" id=" + i + "><div class=\"dropZone\" ondragover=\"allowDrop(event);\" ondrop=\"dragDrop(event);\" ondragleave=\"dragLeave(this);\" ondragenter=\"dragEnter(event);\"></div><div class=\"spacer\"></div><div class=\"number\" draggable=\"true\" onclick=\"clickListener(event);\" ondragstart=\"dragStart(event);\" ondragend=\"dragEnd(event);\">" + getRandom() + "</div></div>";
@@ -67,7 +69,7 @@ function dragEnter(ev) {
 
 function dragLeave(e) {
 	
-	e.parentNode.childNodes[1].style.width = "7px";
+	e.parentNode.childNodes[1].style.width = "10px";
 	e.parentNode.childNodes[0].style.width = "59px";
 	
 }
@@ -76,7 +78,7 @@ function dragDrop(ev) {
 	
 	ev.preventDefault();
 	var e = ev.target.parentNode;
-	e.childNodes[1].style.width = "7px";
+	e.childNodes[1].style.width = "10px";
 	e.childNodes[0].style.width = "59px";
 	e.parentNode.insertBefore(document.getElementById(ev.dataTransfer.getData("id")), e);
 	
