@@ -18,7 +18,7 @@ function generate(count){
 	
 	for (var i = 0; i < count; i++) {
 		
-		content.innerHTML += "<div class=\"numberContainer\" ondragover=\"allowDrop(event);\" id=" + i + "><div class=\"dropZone\" ondragover=\"allowDrop(event);\" ondrop=\"dragDrop(event);\" ondragleave=\"dragLeave(this);\" ondragenter=\"dragEnter(event);\"></div><div class=\"spacer\"></div><div class=\"number\" draggable=\"true\" ondragstart=\"dragStart(event);\" ondragend=\"dragEnd(event);\">" + getRandom() + "</div></div>";
+		content.innerHTML += "<div class=\"numberContainer\" ondragover=\"allowDrop(event);\" id=" + i + "><div class=\"dropZone\" ondragover=\"allowDrop(event);\" ondrop=\"dragDrop(event);\" ondragleave=\"dragLeave(this);\" ondragenter=\"dragEnter(event);\"></div><div class=\"spacer\"></div><div class=\"number\" draggable=\"true\" onclick=\"clickListener(event);\" ondragstart=\"dragStart(event);\" ondragend=\"dragEnd(event);\">" + getRandom() + "</div></div>";
 
 	}
 	
@@ -41,6 +41,20 @@ function submitForm() {
 function allowDrop(ev) {
 	
 	ev.preventDefault();
+	
+}
+
+function clickListener(ev) {
+	
+	if (ev.target.className.localeCompare("number") === 0) {
+		
+		ev.target.className += " selected";
+		
+	} else {
+		
+		ev.target.className = "number";
+		
+	}
 	
 }
 

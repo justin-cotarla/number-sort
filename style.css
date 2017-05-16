@@ -44,7 +44,6 @@ div.spacer{
 
 div.dropZone{
 	
-    //border: 2px red solid;
     width: 59px;
     height: 100%;
     display: none;
@@ -64,6 +63,12 @@ div.number{
     text-align: center;
     display: inline-block;
     cursor: move;
+	
+}
+
+div.selected{
+	
+	border: 2px red solid;
 	
 }
 
