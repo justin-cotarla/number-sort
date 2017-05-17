@@ -9,6 +9,8 @@
 var MAX = 99;
 var MIN = 1;
 
+var MAX_CELLS = 100;
+
 var SPACER_NODE = 0;
 var NUMBER_NODE = 1;
 
@@ -80,7 +82,15 @@ function submitForm() {
 		
 	}
 	
-	generate(countBox.value);
+	if (countBox.value > MAX_CELLS) {
+		
+		generate(MAX_CELLS);
+		
+	} else {
+		
+		generate(countBox.value);
+		
+	}
 }
 
 function allowDrop(ev) {
@@ -108,7 +118,6 @@ function dragEnter(ev) {
 	
 	ev.target.parentNode.childNodes[NUMBER_NODE].style.width = "50px";
 	ev.target.parentNode.childNodes[SPACER_NODE].style.width = "100px";
-	//ev.target.parentNode.style.zIndex = 3;
 	
 }
 
