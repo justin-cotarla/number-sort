@@ -50,8 +50,7 @@ div.dropZone{
     position: absolute;
     left: 0px;
     z-index: 0;
-	border:	solid red 1px;
-	
+	//border: solid red 1px;
 	
 }
 

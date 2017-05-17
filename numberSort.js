@@ -9,9 +9,16 @@
 var MAX = 99;
 var MIN = 1;
 
+var SPACER_NODE = 0;
+var NUMBER_NODE = 1;
+
+var CELL_SIZE = 64;
+
 var countBox;
 var submitBtn;
 var content;
+
+var isGenerated = false;
 
 function generate(count){
 	
@@ -59,7 +66,9 @@ function generate(count){
 	
 	content.appendChild(numberContainer);
 	
+	content.style.padding = "10px " + (getPadding(content.offsetWidth)) + "px";
 	
+	isGenerated = true;
 }
 
 function submitForm() {
@@ -82,7 +91,6 @@ function allowDrop(ev) {
 
 function clickListener(ev) {
 	
-	console.log(ev.target.style["border-color"]);
 	
 	if (ev.target.style["border-color"] == "black") {
 		
@@ -98,15 +106,16 @@ function clickListener(ev) {
 
 function dragEnter(ev) {
 	
-	ev.target.parentNode.childNodes[1].style.width = "50px";
-	ev.target.parentNode.childNodes[0].style.width = "100px";
+	ev.target.parentNode.childNodes[NUMBER_NODE].style.width = "50px";
+	ev.target.parentNode.childNodes[SPACER_NODE].style.width = "100px";
+	//ev.target.parentNode.style.zIndex = 3;
 	
 }
 
 function dragLeave(ev) {
 	
-	ev.target.parentNode.childNodes[1].style.width = "10px";
-	ev.target.parentNode.childNodes[0].style.width = "59px";
+	ev.target.parentNode.childNodes[NUMBER_NODE].style.width = "10px";
+	ev.target.parentNode.childNodes[SPACER_NODE].style.width = "59px";
 	
 }
 
@@ -114,8 +123,8 @@ function dragDrop(ev) {
 	
 	ev.preventDefault();
 	var e = ev.target.parentNode;
-	e.childNodes[1].style.width = "10px";
-	e.childNodes[0].style.width = "59px";
+	e.childNodes[NUMBER_NODE].style.width = "10px";
+	e.childNodes[SPACER_NODE].style.width = "59px";
 	e.parentNode.insertBefore(document.getElementById(ev.dataTransfer.getData("id")), e);
 	
 }
@@ -153,6 +162,12 @@ function dragEnd(ev) {
 function getRandom() {
 	
 	return Math.floor(Math.random() * (MAX - MIN  + 1)) + MIN;
+	
+}
+
+function getPadding(contentSize) {
+	
+	return (contentSize - (Math.floor(contentSize / CELL_SIZE) - 0.3) * CELL_SIZE) / 2;
 	
 }
 
@@ -201,9 +216,7 @@ window.addEventListener("load", function(ev){
 		
 	});
 	content.addEventListener("dragstart", function(e) {
-		
-		console.log(e.target);
-		
+	
 		if (e.target && (e.target.className == "number")) {
 			
 			dragStart(e);
@@ -230,6 +243,16 @@ window.addEventListener("load", function(ev){
 		
 	});
 	
+	window.addEventListener("resize", function() {
+		
+		if (isGenerated) {
+			
+			content.style.padding = "10px " + (getPadding(content.offsetWidth)) + "px";
+			
+		}
+		
+	});
+	
 	submitBtn.addEventListener("click", function(){
 		
 		ev.preventDefault();
@@ -245,6 +268,7 @@ window.addEventListener("load", function(ev){
 		}
 		
 	}, false);
+	
 	
 	countBox.focus();
 	
