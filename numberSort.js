@@ -11,6 +11,7 @@ var MIN = 1;
 
 var countBox;
 var submitBtn;
+var content;
 
 function generate(count){
 	
@@ -20,11 +21,44 @@ function generate(count){
 	
 	for (var i = 0; i < count; i++) {
 		
-		content.innerHTML += "<div class=\"numberContainer\" ondragover=\"allowDrop(event);\" id=" + i + "><div class=\"dropZone\" ondragover=\"allowDrop(event);\" ondrop=\"dragDrop(event);\" ondragleave=\"dragLeave(this);\" ondragenter=\"dragEnter(event);\"></div><div class=\"spacer\"></div><div class=\"number\" draggable=\"true\" onclick=\"clickListener(event);\" ondragstart=\"dragStart(event);\" ondragend=\"dragEnd(event);\">" + getRandom() + "</div></div>";
-
+		var numberContainer = document.createElement("div");
+		numberContainer.setAttribute("class", "numberContainer");
+		numberContainer.setAttribute("id", i);
+		
+		var dropZone = document.createElement("div");
+		dropZone.setAttribute("class", "dropZone");
+		numberContainer.appendChild(dropZone);
+		
+		var spacer = document.createElement("div");
+		spacer.setAttribute("class", "spacer");
+		numberContainer.appendChild(spacer);
+		
+		var number = document.createElement("div");
+		number.setAttribute("class", "number");
+		number.setAttribute("draggable", true);
+		number.style["border-color"] = "black";
+		
+		var numberValue = document.createTextNode(getRandom());
+		number.appendChild(numberValue);
+		numberContainer.appendChild(number);
+		
+		content.appendChild(numberContainer);
 	}
+
+	var numberContainer = document.createElement("div");
+	numberContainer.setAttribute("class", "numberContainer");
+	numberContainer.setAttribute("id", count);
 	
-	content.innerHTML += "<div class=\"numberContainer\" id=" + count+ "><div class=\"dropZone\" ondragover=\"allowDrop(event);\" ondrop=\"dragDrop(event);\" ondragleave=\"dragLeave(this);\" ondragenter=\"dragEnter(event);\"></div><div class=\"spacer\"></div></div>";
+	var dropZone = document.createElement("div");
+	dropZone.setAttribute("class", "dropZone");
+	numberContainer.appendChild(dropZone);
+	
+	var spacer = document.createElement("div");
+	spacer.setAttribute("class", "spacer");
+	numberContainer.appendChild(spacer);
+	
+	content.appendChild(numberContainer);
+	
 	
 }
 
@@ -48,13 +82,15 @@ function allowDrop(ev) {
 
 function clickListener(ev) {
 	
-	if (ev.target.className.localeCompare("number") === 0) {
+	console.log(ev.target.style["border-color"]);
+	
+	if (ev.target.style["border-color"] == "black") {
 		
-		ev.target.className += " selected";
+		ev.target.style["border-color"] = "red";
 		
 	} else {
 		
-		ev.target.className = "number";
+		ev.target.style["border-color"] = "black";
 		
 	}
 	
@@ -67,10 +103,10 @@ function dragEnter(ev) {
 	
 }
 
-function dragLeave(e) {
+function dragLeave(ev) {
 	
-	e.parentNode.childNodes[1].style.width = "10px";
-	e.parentNode.childNodes[0].style.width = "59px";
+	ev.target.parentNode.childNodes[1].style.width = "10px";
+	ev.target.parentNode.childNodes[0].style.width = "59px";
 	
 }
 
@@ -125,6 +161,74 @@ window.addEventListener("load", function(ev){
 	countBox = document.getElementById("count");
 	submitBtn = document.getElementById("submit");
 	content = document.getElementById("content");
+	
+	//Event delegation
+	content.addEventListener("dragover", function(e) {
+		
+		if (e.target && (e.target.className == "dropZone" || e.target.className == "numberContainer")) {
+			
+			allowDrop(e);
+			
+		}
+		
+	});
+	
+	content.addEventListener("drop", function(e) {
+		
+		if (e.target && (e.target.className == "dropZone")) {
+			
+			dragDrop(e);
+			
+		}
+		
+	});
+	content.addEventListener("dragenter", function(e) {
+		
+		if (e.target && (e.target.className == "dropZone")) {
+			
+			dragEnter(e);
+			
+		}
+		
+	});
+	content.addEventListener("dragleave", function(e) {
+		
+		if (e.target && (e.target.className == "dropZone")) {
+			
+			dragLeave(e);
+			
+		}
+		
+	});
+	content.addEventListener("dragstart", function(e) {
+		
+		console.log(e.target);
+		
+		if (e.target && (e.target.className == "number")) {
+			
+			dragStart(e);
+			
+		}
+		
+	});
+	content.addEventListener("dragend", function(e) {
+		
+		if (e.target && (e.target.className == "number")) {
+			
+			dragEnd(e);
+			
+		}
+		
+	});
+		content.addEventListener("click", function(e) {
+		
+		if (e.target && (e.target.className == "number")) {
+			
+			clickListener(e);
+			
+		}
+		
+	});
 	
 	submitBtn.addEventListener("click", function(){
 		

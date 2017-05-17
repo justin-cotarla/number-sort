@@ -44,12 +44,13 @@ div.spacer{
 
 div.dropZone{
 	
-    width: 59px;
+    width: 62px;
     height: 100%;
     display: none;
     position: absolute;
-    left: 0;
+    left: 0px;
     z-index: 0;
+	border:	solid red 1px;
 	
 	
 }
@@ -58,17 +59,11 @@ div.number{
 	
     width: 50px;
     height: 50px;
-    border: solid 2px black;
+    border: 2px solid black;
     font-size: 2.6em;
     text-align: center;
     display: inline-block;
     cursor: move;
-	
-}
-
-div.selected{
-	
-	border: 2px red solid;
 	
 }
 
