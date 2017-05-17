@@ -12,13 +12,17 @@ var MIN = 1;
 var MAX_CELLS = 100;
 
 var SPACER_NODE = 0;
-var NUMBER_NODE = 1;
+var NUMBER_NODE = 1
+
+var DIR_LEFT = -1;
+var DIR_RIGHT = 1;
 
 var CELL_SIZE = 64;
 
 var countBox;
 var submitBtn;
 var content;
+var cursor;
 
 var isGenerated = false;
 
@@ -26,7 +30,9 @@ function generate(count){
 	
 	content.innerHTML = "";
 	
-	content.innerHTML += "<div class=\"separator\"></div>";
+	/*cursor = document.createElement("div");
+	cursor.setAttribute("class", "cursor");
+	content.appendChild(cursor);*/
 	
 	for (var i = 0; i < count; i++) {
 		
@@ -50,6 +56,14 @@ function generate(count){
 		var numberValue = document.createTextNode(getRandom());
 		number.appendChild(numberValue);
 		numberContainer.appendChild(number);
+		
+		if (i == 0) {
+			
+			cursor = document.createElement("div");
+			cursor.setAttribute("class", "cursor");
+			numberContainer.appendChild(cursor);
+			
+		}
 		
 		content.appendChild(numberContainer);
 	}
@@ -131,10 +145,16 @@ function dragLeave(ev) {
 function dragDrop(ev) {
 	
 	ev.preventDefault();
+	
+	//Cursor
+	var cursorIndex = Array.prototype.indexOf.call(content.childNodes, cursor.parentNode);
+	
 	var e = ev.target.parentNode;
-	e.childNodes[NUMBER_NODE].style.width = "10px";
+	e.childNodes[NUMBER_NODE].style.width = "11px";
 	e.childNodes[SPACER_NODE].style.width = "59px";
 	e.parentNode.insertBefore(document.getElementById(ev.dataTransfer.getData("id")), e);
+	
+	content.childNodes[cursorIndex].appendChild(cursor);
 	
 }
 
@@ -178,6 +198,19 @@ function getPadding(contentSize) {
 	
 	return (contentSize - (Math.floor(contentSize / CELL_SIZE) - 0.3) * CELL_SIZE) / 2;
 	
+}
+
+function moveCursor(direction) {
+	
+	var index = Array.prototype.indexOf.call(content.childNodes, cursor.parentNode);
+	
+	if (direction + index >= 0 && direction + index < content.childNodes.length) {
+		
+		content.childNodes[index + direction].appendChild(cursor);
+		
+	}
+	
+
 }
 
 window.addEventListener("load", function(ev){
@@ -262,23 +295,45 @@ window.addEventListener("load", function(ev){
 		
 	});
 	
-	submitBtn.addEventListener("click", function(){
-		
-		ev.preventDefault();
-		submitForm();
-		
-	}, false);
-	
-	countBox.addEventListener("keyup", function(ev) {
+	countBox.addEventListener("keydown", function(ev) {
 		
 		ev.which = ev.which || ev.keyCode;
 		if(ev.which == 13) {
 			submitForm();
 		}
 		
-	}, false);
+		
+	});
 	
+	submitBtn.addEventListener("click", function(){
+		
+		ev.preventDefault();
+		submitForm();
+		
+	});
+	
+	window.addEventListener("keydown", function(ev) {
+		
+		if (!isGenerated) {
+			return;
+		}
+			
+		
+		ev.which = ev.which || ev.keyCode;
+		
+		//Left
+		if(ev.which == 37) {
+			
+			moveCursor(DIR_LEFT);
+			
+		//Right	
+		} else if (ev.which == 39) {
+			
+			moveCursor(DIR_RIGHT);
+			
+		}
+	});
 	
 	countBox.focus();
 	
-}, false);
+});

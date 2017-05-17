@@ -33,9 +33,21 @@ h4{
     margin: 1em;	
 }
 
+div.cursor {
+	
+    height: 60px;
+    width: 3px;
+    background: #FF9800;
+    display: inline;
+    position: absolute;
+    left: 4px;
+    top: -3px;
+	
+}
+
 div.spacer{
 	
-	width: 10px;
+	width: 11px;
     height: 50px;
     display: inline-block;
     float: left;
