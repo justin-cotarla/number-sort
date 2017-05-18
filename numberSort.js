@@ -11,8 +11,8 @@ var MIN = 1;
 
 var MAX_CELLS = 100;
 
-var SPACER_NODE = 0;
-var NUMBER_NODE = 1
+var SPACER_NODE = 1;
+var DROPZONE_NODE = 0;
 
 var DIR_LEFT = -1;
 var DIR_RIGHT = 1;
@@ -82,7 +82,9 @@ function generate(count){
 	
 	content.appendChild(numberContainer);
 	
-	content.style.padding = "10px " + (getPadding(content.offsetWidth)) + "px";
+	content.style["padding-right"] = (getPadding(content.offsetWidth)) + "px";
+	console.log(content.offsetWidth);
+	console.log("10px " + (getPadding(content.offsetWidth)) + "px");
 	
 	isGenerated = true;
 }
@@ -130,15 +132,15 @@ function clickListener(ev) {
 
 function dragEnter(ev) {
 	
-	ev.target.parentNode.childNodes[NUMBER_NODE].style.width = "50px";
-	ev.target.parentNode.childNodes[SPACER_NODE].style.width = "100px";
+	ev.target.parentNode.childNodes[SPACER_NODE].style.width = "50px";
+	ev.target.parentNode.childNodes[DROPZONE_NODE].style.width = "100px";
 	
 }
 
 function dragLeave(ev) {
 	
-	ev.target.parentNode.childNodes[NUMBER_NODE].style.width = "10px";
-	ev.target.parentNode.childNodes[SPACER_NODE].style.width = "59px";
+	ev.target.parentNode.childNodes[SPACER_NODE].style.width = "11px";
+	ev.target.parentNode.childNodes[DROPZONE_NODE].style.width = "59px";
 	
 }
 
@@ -150,8 +152,8 @@ function dragDrop(ev) {
 	var cursorIndex = Array.prototype.indexOf.call(content.childNodes, cursor.parentNode);
 	
 	var e = ev.target.parentNode;
-	e.childNodes[NUMBER_NODE].style.width = "11px";
-	e.childNodes[SPACER_NODE].style.width = "59px";
+	e.childNodes[SPACER_NODE].style.width = "11px";
+	e.childNodes[DROPZONE_NODE].style.width = "59px";
 	e.parentNode.insertBefore(document.getElementById(ev.dataTransfer.getData("id")), e);
 	
 	content.childNodes[cursorIndex].appendChild(cursor);
@@ -196,7 +198,7 @@ function getRandom() {
 
 function getPadding(contentSize) {
 	
-	return (contentSize - (Math.floor(contentSize / CELL_SIZE) - 0.1) * CELL_SIZE) / 2;
+	return (contentSize - ((Math.floor(contentSize / CELL_SIZE )) * CELL_SIZE)) + (CELL_SIZE - 50);
 	
 }
 
@@ -289,7 +291,7 @@ window.addEventListener("load", function(ev){
 		
 		if (isGenerated) {
 			
-			content.style.padding = "10px " + (getPadding(content.offsetWidth)) + "px";
+			content.style["padding-right"] = (getPadding(content.offsetWidth)) + "px";
 			
 		}
 		
