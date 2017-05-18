@@ -17,7 +17,7 @@ var NUMBER_NODE = 1
 var DIR_LEFT = -1;
 var DIR_RIGHT = 1;
 
-var CELL_SIZE = 64;
+var CELL_SIZE = 65;
 
 var countBox;
 var submitBtn;
@@ -196,7 +196,7 @@ function getRandom() {
 
 function getPadding(contentSize) {
 	
-	return (contentSize - (Math.floor(contentSize / CELL_SIZE) - 0.3) * CELL_SIZE) / 2;
+	return (contentSize - (Math.floor(contentSize / CELL_SIZE) - 0.1) * CELL_SIZE) / 2;
 	
 }
 
