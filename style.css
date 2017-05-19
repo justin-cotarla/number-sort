@@ -47,7 +47,7 @@ div.cursor {
 
 div.spacer{
 	
-	width: 11px;
+	width: 10px;
     height: 50px;
     display: inline-block;
     float: left;
@@ -56,7 +56,7 @@ div.spacer{
 
 div.dropZone{
 	
-    width: 62px;
+    width: 64px;
     height: 100%;
     display: none;
     position: absolute;
@@ -75,6 +75,36 @@ div.number{
     text-align: center;
     display: inline-block;
     cursor: move;
+	
+}
+
+#color-0 {
+	
+	background: white;
+	
+}
+
+#color-1 {
+	
+	background: lightgreen;
+	
+}
+
+#color-2 {
+	
+	background: cyan;
+	
+}
+
+#color-3 {
+	
+	background: pink;
+	
+}
+
+#color-4 {
+	
+	background: yellow;
 	
 }
 

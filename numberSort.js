@@ -17,7 +17,8 @@ var DROPZONE_NODE = 0;
 var DIR_LEFT = -1;
 var DIR_RIGHT = 1;
 
-var CELL_SIZE = 65;
+var CELL_SIZE = 64;
+var SPACER_SIZE = 10;
 
 var countBox;
 var submitBtn;
@@ -50,6 +51,7 @@ function generate(count){
 		
 		var number = document.createElement("div");
 		number.setAttribute("class", "number");
+		number.setAttribute("id", "color-0");
 		number.setAttribute("draggable", true);
 		number.style["border-color"] = "black";
 		
@@ -83,8 +85,6 @@ function generate(count){
 	content.appendChild(numberContainer);
 	
 	content.style["padding-right"] = (getPadding(content.offsetWidth)) + "px";
-	console.log(content.offsetWidth);
-	console.log("10px " + (getPadding(content.offsetWidth)) + "px");
 	
 	isGenerated = true;
 }
@@ -115,7 +115,7 @@ function allowDrop(ev) {
 	
 }
 
-function clickListener(ev) {
+function changeBorder(ev) {
 	
 	
 	if (ev.target.style["border-color"] == "black") {
@@ -130,6 +130,17 @@ function clickListener(ev) {
 	
 }
 
+function cycleColor(ev) {
+	
+	var colorCode = ev.target.id.split("-")[1];
+	
+	colorCode = (colorCode < 4) ? ++colorCode : 0;
+	
+	ev.target.id = "color-" + colorCode;
+	
+	
+}
+
 function dragEnter(ev) {
 	
 	ev.target.parentNode.childNodes[SPACER_NODE].style.width = "50px";
@@ -139,7 +150,7 @@ function dragEnter(ev) {
 
 function dragLeave(ev) {
 	
-	ev.target.parentNode.childNodes[SPACER_NODE].style.width = "11px";
+	ev.target.parentNode.childNodes[SPACER_NODE].style.width = "10px";
 	ev.target.parentNode.childNodes[DROPZONE_NODE].style.width = "59px";
 	
 }
@@ -277,14 +288,24 @@ window.addEventListener("load", function(ev){
 		}
 		
 	});
-		content.addEventListener("click", function(e) {
+	
+	content.addEventListener("click", function(e) {
 		
 		if (e.target && (e.target.className == "number")) {
 			
-			clickListener(e);
+			changeBorder(e);
 			
 		}
 		
+	});
+	
+	content.addEventListener("dblclick", function(e) {
+
+		if (e.target && (e.target.className == "number")) {
+			
+			cycleColor(e);
+			
+		}
 	});
 	
 	window.addEventListener("resize", function() {
